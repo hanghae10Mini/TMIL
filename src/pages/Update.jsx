@@ -1,7 +1,8 @@
 import React from 'react';
+import InputForm from '../components/inputform/InputForm';
 
-function Update() {
-  return <div>Update</div>;
+function Create() {
+  return <InputForm title="게시글 수정" buttonName="수정하기" />;
 }
 
-export default Update;
+export default Create;
