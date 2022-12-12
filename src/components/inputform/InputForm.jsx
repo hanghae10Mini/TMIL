@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import Topbar from '../topbar/Topbar';
+import Header from '../header/Header';
 import InputTitle from './InputTitle';
 import InputContents from './InputContents';
 
 function InputForm({ title, buttonName }) {
   return (
     <StInputForm>
-      <Topbar title={title} buttonName={buttonName} />
+      <Header title={title} buttonName={buttonName} />
       <InputTitle />
       <InputContents />
     </StInputForm>

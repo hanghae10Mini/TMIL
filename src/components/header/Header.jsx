@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { PropTypes } from 'prop-types';
 
-function Topbar({ title, buttonName }) {
+function Header({ title, buttonName }) {
   return (
     <StTopbar>
       <StArrowBackIcon fontSize="50px" />
@@ -13,12 +13,12 @@ function Topbar({ title, buttonName }) {
   );
 }
 
-Topbar.defaultProps = {
+Header.defaultProps = {
   title: '',
   buttonName: '',
 };
 
-Topbar.propTypes = {
+Header.propTypes = {
   title: PropTypes.string,
   buttonName: PropTypes.string,
 };
@@ -47,4 +47,4 @@ const StButton = styled.button`
   float: right;
 `;
 
-export default Topbar;
+export default Header;

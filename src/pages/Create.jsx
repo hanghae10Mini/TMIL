@@ -1,14 +1,8 @@
 import React from 'react';
-import Header from '../header/Header';
-import InputForm from '../inputform/InputForm';
+import InputForm from '../components/inputform/InputForm';
 
 function Create() {
-  return (
-    <>
-      <Header />
-      <InputForm title="게시글 작성" buttonName="등록하기" />
-    </>
-  );
+  return <InputForm title="게시글 작성" buttonName="등록하기" />;
 }
 
 export default Create;
