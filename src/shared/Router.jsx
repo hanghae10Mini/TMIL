@@ -4,10 +4,12 @@ import Create from '../pages/Create';
 import Details from '../pages/Details';
 import Home from '../pages/Home';
 import Update from '../pages/Update';
+import Topbar from '../components/Topbar';
 
 function Router() {
   return (
     <BrowserRouter>
+      <Topbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
