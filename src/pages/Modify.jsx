@@ -6,7 +6,7 @@ function Create() {
   return (
     <>
       <Header />
-      <InputForm title="게시글 작성" buttonName="등록하기" />
+      <InputForm title="게시글 수정" buttonName="수정하기" />
     </>
   );
 }
