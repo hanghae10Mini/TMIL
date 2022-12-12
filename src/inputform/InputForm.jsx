@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 import Topbar from '../topbar/Topbar';
 import InputTitle from './InputTitle';
 import InputContents from './InputContents';
