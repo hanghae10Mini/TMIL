@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
-import { PropTypes } from 'prop-types';
 
 function InputContents() {
   return (

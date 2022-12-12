@@ -1,7 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styled from 'styled-components';
 import React from 'react';
-import { PropTypes } from 'prop-types';
 
 function Header({ title, buttonName }) {
   return (
@@ -12,16 +11,6 @@ function Header({ title, buttonName }) {
     </StTopbar>
   );
 }
-
-Header.defaultProps = {
-  title: '',
-  buttonName: '',
-};
-
-Header.propTypes = {
-  title: PropTypes.string,
-  buttonName: PropTypes.string,
-};
 
 const StTopbar = styled.div`
   height: 60px;
