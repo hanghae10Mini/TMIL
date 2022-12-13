@@ -9,22 +9,22 @@ export default function Home() {
   const perPage = 5;
   const [totalList, setTotalList] = useState();
   const [lastPage, setLastPage] = useState();
-  const [currntPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [boardList, setBoardList] = useState();
 
   const onChangePageHandler = (e, value) => {
     setCurrentPage(value);
   };
 
-  const getBoarList = useCallback(async () => {
+  const getBoardList = useCallback(async () => {
     const getList = await axios.get('http://localhost:3001/posts');
     console.log(getList);
     setTotalList(getList.data);
   }, []);
 
   useEffect(() => {
-    getBoarList();
-  }, [getBoarList]);
+    getBoardList();
+  }, [getBoardList]);
 
   useEffect(() => {
     if (totalList) {
@@ -34,19 +34,19 @@ export default function Home() {
 
   useEffect(() => {
     // 한 페이지에 5개씩 보여준다.
-    if (totalList && currntPage !== lastPage) {
+    if (totalList && currentPage !== lastPage) {
       const sliceData = totalList.slice(
-        perPage * (currntPage - 1),
-        perPage * (currntPage - 1) + perPage,
+        perPage * (currentPage - 1),
+        perPage * (currentPage - 1) + perPage,
       );
       setBoardList(sliceData);
     }
-    if (totalList && currntPage === lastPage) {
+    if (totalList && currentPage === lastPage) {
       // 마지막 페이지는 데이터가 5개보다 부족할 수도 있다.
-      const sliceData = totalList.slice(perPage * (currntPage - 1));
+      const sliceData = totalList.slice(perPage * (currentPage - 1));
       setBoardList(sliceData);
     }
-  }, [currntPage, lastPage, totalList]);
+  }, [currentPage, lastPage, totalList]);
 
   return (
     <Stack
