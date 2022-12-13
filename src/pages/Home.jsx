@@ -30,7 +30,3 @@ export default function Home() {
   );
 }
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   textAlign: 'center',
-//   display: 'flex',
-// }));
