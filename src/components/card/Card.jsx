@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import theme from '../../styles/theme';
 
 function Card(props) {
   const { title, content, day } = props;
@@ -7,7 +8,8 @@ function Card(props) {
     <Box
       width="100%"
       py={2}
-      bgcolor="background.paper"
+      // theme 적용
+      bgcolor={theme.palette.primary}
       borderRadius={2}
       sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
     >
