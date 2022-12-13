@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, Stack, Paper, Typography } from '@mui/material';
 import styled from 'styled-components';
 import Card from '../components/card/Card';
+import Divider from '../components/common/MainDivider';
 
 export default function Home() {
   return (
@@ -19,7 +20,7 @@ export default function Home() {
       {/* container */}
       <Box sx={{ width: '80%' }}>
         {/* Divider */}
-        <Box sx={{ width: '100%', height: '10px', my: 2, bgcolor: '#0AA4B5' }} />
+        <Divider />
         {/* Card들어가는곳 */}
         <Stack spacing={2}>
           {/* CardItem => 컴포넌트, props ={ title, content, day(format: yyyy/mm/dd) } */}

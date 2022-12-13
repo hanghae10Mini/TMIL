@@ -7,7 +7,7 @@ function Card(props) {
     <Box
       width="100%"
       py={2}
-      bgcolor="#F9FCFD"
+      bgcolor="background.paper"
       borderRadius={2}
       sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
     >
