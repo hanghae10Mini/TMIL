@@ -7,6 +7,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MainDivider from '../components/common/MainDivider';
 import Comment from '../components/details/Comment';
 import CommentForm from '../components/details/CommentForm';
+import CommentNum from '../components/details/CommentNum';
+import DetailInfo from '../components/details/DetailInfo';
+import ContentBox from '../components/details/ContentBox';
 
 function Details() {
   return (
@@ -17,7 +20,9 @@ function Details() {
             <ArrowBackIcon />
           </IconButton>
         </StBtnBox>
-        <Typography variant="h4">게시글 상세 보기</Typography>
+        <Typography variant="h5" fontWeight="bold">
+          게시글 상세 보기
+        </Typography>
         <StBtnBox>
           <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
             <CreateOutlinedIcon />
@@ -28,7 +33,20 @@ function Details() {
         </StBtnBox>
       </StHeader>
       <MainDivider />
-      <Paper elevation={3} sx={{ width: '100%', height: '50px', bgcolor: 'background.paper' }} />
+      <DetailInfo
+        title="[TIL] 오늘 잠만 잤어요..."
+        username="잠만보"
+        views="48"
+        createdAt="2022.12.14"
+      />
+      <ContentBox>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </ContentBox>
+      <CommentNum comments="2" />
       <MainDivider />
       <CommentForm />
       <Comment username="금붕어" createdAt="2022.12.12" content="나는 오늘 뭐했지..." />
