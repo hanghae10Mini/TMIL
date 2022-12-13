@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import theme from '../../styles/theme';
 
 function Card(props) {
-  const { title, content, day } = props;
+  const { title, usename, createdAt } = props;
   return (
     <Box
       width="100%"
@@ -17,10 +17,10 @@ function Card(props) {
         {title}
       </Typography>
       <Typography sx={{ width: '33%', textAlign: 'center' }} variant="h6">
-        {content}
+        {usename}
       </Typography>
       <Typography sx={{ width: '33%', textAlign: 'center' }} variant="h6">
-        {day}
+        {createdAt}
       </Typography>
     </Box>
   );
