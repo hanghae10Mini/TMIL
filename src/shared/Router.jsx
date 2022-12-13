@@ -13,7 +13,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/update" element={<Update />} />
+        <Route path="/update/:postId" element={<Update />} />
         <Route path="details" element={<Details />} />
         {/* <Route path="details/:id" element={<Details />} /> */}
       </Routes>
