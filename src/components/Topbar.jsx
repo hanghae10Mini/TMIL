@@ -11,21 +11,25 @@ import { Tooltip } from '@mui/material';
 function Topbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#c9eff9' }}>
+      <AppBar position="static" sx={{ backgroundColor: 'primary' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link to="/">
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { xs: 'none', sm: 'block' }, color: 'black', fontWeight: 'bold' }}
+              sx={{
+                display: { xs: 'none', sm: 'block' },
+                color: 'text',
+                fontWeight: 'bold',
+              }}
             >
               TMIL
             </Typography>
           </Link>
           <Tooltip title="작성하기" arrow followCursor>
             <Link to="/create">
-              <IconButton size="large" edge="start" color="primary" sx={{ mr: 2 }}>
+              <IconButton size="large" edge="start" color="secondary" sx={{ mr: 2 }}>
                 <CreateOutlinedIcon />
               </IconButton>
             </Link>

@@ -1,11 +1,25 @@
 {
   "posts": [
     {
+      "title": "오늘은 잠만 잤네요",
+      "contents": "123",
+      "name": "잠만보",
+      "password": "5459",
+      "id": 1
+    },
+    {
       "title": "123",
-      "contents": "132",
+      "contents": "123",
       "name": "123",
       "password": "123",
-      "id": 1
+      "id": 2
     }
-  ]
+  ],
+  "post": {
+    "title": "",
+    "contents": "",
+    "name": "",
+    "password": "",
+    "id": 0
+  }
 }
