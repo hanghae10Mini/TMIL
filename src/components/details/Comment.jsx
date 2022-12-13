@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import CommentForm from './CommentForm';
 
 function Comment({ username, createdAt, content }) {
   return (
