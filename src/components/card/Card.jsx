@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-export default function Card(props) {
+function Card(props) {
   const { title, content, day } = props;
   return (
     <Box
@@ -23,3 +23,5 @@ export default function Card(props) {
     </Box>
   );
 }
+
+export default Card;
