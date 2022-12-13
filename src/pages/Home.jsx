@@ -19,7 +19,7 @@ export default function Home() {
       {/* container */}
       <Box sx={{ width: '80%' }}>
         {/* Divider */}
-        <Box sx={{ width: '100%', height: '10px', my: 2, bgcolor: '#0AA4B5' }} />
+        <Box sx={{ width: '100%', height: '10px', my: 2, bgcolor: 'secondary.main' }} />
         {/* Card들어가는곳 */}
         <Stack spacing={2}>
           {/* CardItem => 컴포넌트, props ={ title, content, day(format: yyyy/mm/dd) } */}
