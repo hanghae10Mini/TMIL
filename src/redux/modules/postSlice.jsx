@@ -16,7 +16,7 @@ const initialState = {
 
 export const createPost = createAsyncThunk('post/CREATE_POST', async (payload, thunkAPI) => {
   try {
-    await axios.post('http://localhost:3001/post', payload);
+    await axios.post('http://localhost:3001/posts', payload);
     return '게시글 작성 완료';
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -44,7 +44,14 @@ export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, t
   }
 });
 
-export const deletePost = createAsyncThunk('post/DELETE_POST', async (payload, thunkAPI) => {});
+export const deletePost = createAsyncThunk('post/DELETE_POST', async (payload, thunkAPI) => {
+  try {
+    await axios.delete(`http://localhost:3001/post/${payload.id}`);
+    return '삭제 완료!';
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 const postSlice = createSlice({
   name: 'post',
@@ -75,3 +82,5 @@ const postSlice = createSlice({
     },
   },
 });
+
+export default postSlice.reducer;

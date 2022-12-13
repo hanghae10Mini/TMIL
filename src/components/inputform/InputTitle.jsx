@@ -1,13 +1,27 @@
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { changeTitle, changeName, changePassword } from '../../redux/modules/textSlice';
 
 function InputTitle() {
+  const dispatch = useDispatch();
+  const onTitleChange = (event) => {
+    dispatch(changeTitle(event.target.value));
+  };
+  const onNameChange = (event) => {
+    dispatch(changeName(event.target.value));
+  };
+  const onPasswordChange = (event) => {
+    dispatch(changePassword(event.target.value));
+  };
+
   return (
+    // id="outlined-basic"
     <StInputTitle>
-      <StTitle id="outlined-basic" label="제목" variant="outlined" />
-      <StName id="outlined-basic" label="닉네임" variant="outlined" />
-      <StPassword id="outlined-basic" label="비밀번호" variant="outlined" type="password" />
+      <StTitle label="제목" variant="outlined" onChange={onTitleChange} />
+      <StName label="닉네임" variant="outlined" onChange={onNameChange} />
+      <StPassword label="비밀번호" variant="outlined" type="password" onChange={onPasswordChange} />
     </StInputTitle>
   );
 }

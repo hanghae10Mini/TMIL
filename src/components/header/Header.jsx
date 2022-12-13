@@ -1,13 +1,22 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styled from 'styled-components';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createPost } from '../../redux/modules/postSlice';
 
 function Header({ title, buttonName }) {
+  const post = useSelector((state) => state.text);
+  const dispatch = useDispatch();
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(post);
+    dispatch(createPost(post));
+  };
   return (
     <StTopbar>
       <StArrowBackIcon fontSize="50px" />
       {title}
-      <StButton>{buttonName}</StButton>
+      <StButton onClick={onSubmitHandler}>{buttonName}</StButton>
     </StTopbar>
   );
 }
@@ -32,7 +41,7 @@ const StButton = styled.button`
   border: 0px;
   border-radius: 10px;
   background-color: #c9eff9;
-  font-size: 28px;
+  font-size: 24px;
   float: right;
 `;
 

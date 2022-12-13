@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { changeContents } from '../../redux/modules/textSlice';
 
 function InputContents() {
+  const dispatch = useDispatch();
+  const onContentsChange = (event) => {
+    dispatch(changeContents(event.target.value));
+  };
   return (
     <StWrapper>
       <StContents
@@ -10,6 +16,7 @@ function InputContents() {
         label="내용"
         variant="outlined"
         multiline="true"
+        onChange={onContentsChange}
         inputProps={{
           style: {
             height: '500px',

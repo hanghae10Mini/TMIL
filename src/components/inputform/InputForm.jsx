@@ -4,10 +4,10 @@ import Header from '../header/Header';
 import InputTitle from './InputTitle';
 import InputContents from './InputContents';
 
-function InputForm({ title, buttonName }) {
+function InputForm({ type, buttonName }) {
   return (
     <StInputForm>
-      <Header title={title} buttonName={buttonName} />
+      <Header type={type} buttonName={buttonName} />
       <InputTitle />
       <InputContents />
     </StInputForm>
