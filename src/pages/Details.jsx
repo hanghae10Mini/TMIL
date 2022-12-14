@@ -1,19 +1,35 @@
-import { Container, IconButton, Paper, Typography } from '@mui/material';
-import React from 'react';
+import { Container, IconButton, Typography } from '@mui/material';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useDispatch, useSelector } from 'react-redux';
 import MainDivider from '../components/common/MainDivider';
 import Comment from '../components/details/Comment';
 import CommentForm from '../components/details/CommentForm';
 import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
+import { readComments } from '../redux/modules/commentSlice';
+import Loading from '../components/common/Loading';
 
 function Details() {
+  const dispatch = useDispatch();
+  const { comments, isLoading, error } = useSelector((state) => state.comments);
+
+  const dispatchReadComments = useCallback(() => {
+    dispatch(readComments());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatchReadComments();
+  }, [dispatchReadComments]);
+
+  if (isLoading) return <Loading />;
+  if (error) return <div>error!</div>;
   return (
-    <Container>
+    <Container sx={{ mb: 3 }}>
       <StHeader>
         <StBtnBox>
           <IconButton size="large" edge="start" color="text.primary" sx={{ m: 1 }}>
@@ -46,11 +62,18 @@ function Details() {
         voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </ContentBox>
-      <CommentNum comments="2" />
+      <CommentNum comments={comments.length} />
       <MainDivider />
       <CommentForm />
-      <Comment username="금붕어" createdAt="2022.12.12" content="나는 오늘 뭐했지..." />
-      <Comment username="ssori" createdAt="2022.12.13" content="저희 오늘은 같이 열심히 해봐요!" />
+      {comments &&
+        comments.map((comment) => (
+          <Comment
+            key={comment.id}
+            username={comment.username}
+            createdAt={comment.createdAt}
+            content={comment.content}
+          />
+        ))}
     </Container>
   );
 }
