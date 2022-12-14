@@ -71,7 +71,9 @@ export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payloa
 const postSlice = createSlice({
   name: 'post',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => ({ ...state, error: null }),
+  },
   extraReducers: {
     [createPost.pending]: (state) => {
       state.isLoading = true;
@@ -131,5 +133,7 @@ const postSlice = createSlice({
     },
   },
 });
+
+export const { clearError } = postSlice.actions;
 
 export default postSlice.reducer;
