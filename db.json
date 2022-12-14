@@ -1,11 +1,18 @@
 {
   "posts": [
     {
-      "title": "1",
-      "contents": "1",
+      "title": "123",
+      "contents": "123",
       "name": "41",
       "password": "12",
       "id": 1
+    },
+    {
+      "title": "321",
+      "contents": "412",
+      "name": "123",
+      "password": "123",
+      "id": 2
     }
   ],
   "post": {

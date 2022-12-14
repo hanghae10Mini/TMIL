@@ -13,7 +13,6 @@ function Header({ isCreate }) {
 
   const postText = useSelector((state) => state.postText); // post의 현재 title, contents, name, password의 state입니다.
   const post = useSelector((state) => state.post.post); // db에 담겨있는 post입니다.
-  const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
   const updateText = useRef(); // 수정시에 update할 text입니다.
 
   const dispatch = useDispatch();
@@ -24,7 +23,6 @@ function Header({ isCreate }) {
     console.log(postText);
     dispatch(createPost(postText));
     dispatch(clearText());
-    alert('글 작성 완료');
     navigate('/');
   };
 
@@ -33,7 +31,6 @@ function Header({ isCreate }) {
     updateText.current = { ...postText, id: post.id };
     dispatch(updatePost(updateText.current));
     dispatch(clearText());
-    alert('글 수정 완료');
     navigate(`/details/${postId}`);
   };
 
@@ -41,13 +38,6 @@ function Header({ isCreate }) {
     if (postId) dispatch(getPostById(postId));
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      alert(error);
-      navigate(`/details/${postId}`);
-    }
-    dispatch(clearError());
-  }, [error]);
   return (
     <StTopbar>
       <Link to="/">

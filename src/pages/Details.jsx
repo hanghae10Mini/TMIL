@@ -1,17 +1,35 @@
 import { Container, IconButton, Paper, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 import MainDivider from '../components/common/MainDivider';
 import Comment from '../components/details/Comment';
 import CommentForm from '../components/details/CommentForm';
 import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
+import { clearError, deletePost } from '../redux/modules/postSlice';
 
 function Details() {
+  const dispatch = useDispatch();
+  const { postId } = useParams();
+  const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
+
+  function onDeleteHandler() {
+    dispatch(deletePost(postId));
+  }
+
+  useEffect(() => {
+    if (error && error.message === '비밀번호 불일치') {
+      alert(error);
+      dispatch(clearError());
+    }
+  }, [error]);
+
   return (
     <Container>
       <StHeader>
@@ -24,10 +42,18 @@ function Details() {
           게시글 상세 보기
         </Typography>
         <StBtnBox>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
-            <CreateOutlinedIcon />
-          </IconButton>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
+          <Link to={`/update/${postId}`}>
+            <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
+              <CreateOutlinedIcon />
+            </IconButton>
+          </Link>
+          <IconButton
+            onClick={() => onDeleteHandler()}
+            size="large"
+            edge="start"
+            color="text.primary"
+            sx={{ mr: 1 }}
+          >
             <DeleteOutlineOutlinedIcon />
           </IconButton>
         </StBtnBox>
