@@ -72,7 +72,7 @@ export default function Home() {
               <Card
                 key={`${v.postId}`}
                 title={v.title}
-                usename={v.username}
+                username={v.username}
                 createdAt={v.createdAt}
               />
             ))}
