@@ -16,9 +16,9 @@ export const createComments = createAsyncThunk('comments/create', async (payload
   }
 });
 
-export const readComments = createAsyncThunk('comments/read', async (_, thunkAPI) => {
+export const readComments = createAsyncThunk('comments/read', async (postId, thunkAPI) => {
   try {
-    const response = await axios.get('http://localhost:3001/comments');
+    const response = await axios.get(`http://localhost:3001/comments?postId=${postId}`);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);

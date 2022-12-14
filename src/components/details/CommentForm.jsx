@@ -2,9 +2,12 @@ import { Box, Button, Paper, TextField } from '@mui/material';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { createComments } from '../../redux/modules/commentSlice';
+import { currentTime } from '../../utils/date';
 
 function CommentForm() {
+  const { postId } = useParams();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     username: '',
@@ -25,9 +28,11 @@ function CommentForm() {
   const handleCreateComment = () => {
     if (username && password && content) {
       const comment = {
+        postId,
         username,
         password,
         content,
+        createdAt: currentTime(),
       };
 
       dispatch(createComments(comment));

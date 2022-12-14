@@ -13,38 +13,38 @@ import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
 import { readComments } from '../redux/modules/commentSlice';
-import { clearError, deletePost, getPostById } from '../redux/modules/postSlice';
+import { deletePost, getPostById } from '../redux/modules/postSlice';
 import Loading from '../components/common/Loading';
 
 function Details() {
   const dispatch = useDispatch();
   const { postId } = useParams();
-  const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
+  // const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
   const post = useSelector((state) => state.post.post);
   const { comments, isLoading, error } = useSelector((state) => state.comments);
 
   const dispatchReadComments = useCallback(() => {
-    dispatch(readComments());
-  }, [dispatch]);
+    dispatch(readComments(postId));
+  }, [dispatch, postId]);
 
   useEffect(() => {
     dispatchReadComments();
   }, [dispatchReadComments]);
 
+  useEffect(() => {
+    dispatch(getPostById(postId));
+  }, [dispatch, postId]);
+
   function onDeleteHandler() {
     dispatch(deletePost(postId));
   }
 
-  useEffect(() => {
-    if (error && error.message === '비밀번호 불일치') {
-      alert(error);
-      dispatch(clearError());
-    }
-  }, [error]);
-
-  useEffect(() => {
-    dispatch(getPostById(postId));
-  }, []);
+  // useEffect(() => {
+  //   if (error && error.message === '비밀번호 불일치') {
+  //     alert(error);
+  //     dispatch(clearError());
+  //   }
+  // }, [error]);
 
   if (isLoading) return <Loading />;
   if (error) return <div>error!</div>;
