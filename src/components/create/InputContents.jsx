@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { changeContents } from '../../redux/modules/textSlice';
 import { getPostById } from '../../redux/modules/postSlice';
+import { changeContents } from '../../redux/modules/textSlice';
 
 function InputContents() {
   const post = useSelector((state) => state.post.post);
-  const text = useSelector((state) => state.postText);
+  const postText = useSelector((state) => state.postText);
   const { postId } = useParams();
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function InputContents() {
         variant="outlined"
         multiline
         onChange={onContentsChange}
-        value={text.contents}
+        value={postText.contents}
         color="secondary"
         inputProps={{
           style: {

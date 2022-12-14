@@ -1,37 +1,17 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styled from 'styled-components';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button, IconButton } from '@mui/material';
-import { createPost, getPostById, updatePost } from '../../redux/modules/postSlice';
+import { useDispatch } from 'react-redux';
+import { clearText } from '../../redux/modules/textSlice';
 
-function Header({ isCreate }) {
-  const text = useSelector((state) => state.text);
-  const post = useSelector((state) => state.post.post);
-  const { postId } = useParams();
-  const updateText = useRef();
+function Header({ isCreate, onAddHandler, onUpdateHandler }) {
   const dispatch = useDispatch();
-
-  const onAddHandler = (event) => {
-    event.preventDefault();
-    dispatch(createPost(text));
-  };
-
-  const onUpdateHandler = (event) => {
-    event.preventDefault();
-    updateText.current = { ...text, id: post.id };
-    dispatch(updatePost(updateText.current));
-  };
-
-  useEffect(() => {
-    if (postId) dispatch(getPostById(postId));
-  }, []);
-
   return (
     <StTopbar>
       <Link to="/">
-        <StIconButton>
+        <StIconButton onClick={() => dispatch(clearText())}>
           <StArrowBackIcon fontSize="50px" />
         </StIconButton>
       </Link>

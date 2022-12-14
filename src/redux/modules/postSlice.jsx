@@ -9,6 +9,7 @@ const initialState = {
     name: '',
     password: '',
     id: 0,
+    createAt: 'yyyy. mm. dd. hh:mm:ss',
   },
   isLoading: false,
   error: null,
@@ -34,13 +35,17 @@ export const readPost = createAsyncThunk('post/READ_POST', async (payload, thunk
 
 export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, thunkAPI) => {
   try {
-    const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
-      title: payload.title,
-      contents: payload.contetns,
-      name: payload.name,
-      password: payload.password,
-    });
-    return thunkAPI.fulfillWithValue(data.data);
+    const currentPost = await axios.get(`http://localhost:3001/posts/${payload.id}`);
+
+    if (currentPost.data.password === payload.password) {
+      const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
+        title: payload.title,
+        contents: payload.contents,
+        name: payload.name,
+      });
+      return thunkAPI.fulfillWithValue(data.data);
+    }
+    throw new Error('비밀번호 불일치');
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -67,7 +72,9 @@ export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payloa
 const postSlice = createSlice({
   name: 'post',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => ({ ...state, error: null }),
+  },
   extraReducers: {
     [createPost.pending]: (state) => {
       state.isLoading = true;
@@ -76,6 +83,7 @@ const postSlice = createSlice({
       state.isLoading = false;
     },
     [createPost.rejected]: (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -127,5 +135,7 @@ const postSlice = createSlice({
     },
   },
 });
+
+export const { clearError } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import InputForm from '../components/inputform/InputForm';
+import InputForm from '../components/create/InputForm';
 
 function Create() {
   return <InputForm isCreate={false} />;
