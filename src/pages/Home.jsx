@@ -2,10 +2,15 @@ import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Stack, Paper, Typography, Pagination } from '@mui/material';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Card from '../components/card/Card';
 import Divider from '../components/common/MainDivider';
+import { increaseViews } from '../redux/modules/postSlice';
 
 export default function Home() {
+  const dispatch = useDispatch();
+
   const perPage = 5;
   const [totalList, setTotalList] = useState();
   const [lastPage, setLastPage] = useState();
@@ -18,7 +23,6 @@ export default function Home() {
 
   const getBoardList = useCallback(async () => {
     const getList = await axios.get('http://localhost:3001/posts');
-    console.log(getList);
     setTotalList(getList.data);
   }, []);
 
@@ -69,12 +73,9 @@ export default function Home() {
           {/* <Card title="[TIL]오늘 잠만 잤어요" content="내용" day="2022/10/22" /> */}
           {boardList &&
             boardList.map((v) => (
-              <Card
-                key={`${v.postId}`}
-                title={v.title}
-                username={v.username}
-                createdAt={v.createdAt}
-              />
+              <Link to={`/details/${v.id}`} key={`${v.id}`} onClick={dispatch(increaseViews(v))}>
+                <Card key={`${v.id}`} title={v.title} username={v.name} createdAt={v.createdAt} />
+              </Link>
             ))}
         </Stack>
         <Pagination

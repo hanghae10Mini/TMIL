@@ -9,7 +9,8 @@ const initialState = {
     name: '',
     password: '',
     id: 0,
-    createAt: 'yyyy. mm. dd. hh:mm:ss',
+    views: 0,
+    createdAt: 'yyyy. mm. dd. hh:mm:ss',
   },
   isLoading: false,
   error: null,
@@ -64,6 +65,15 @@ export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payloa
   try {
     const data = await axios.get(`http://localhost:3001/posts/${payload}`);
     return thunkAPI.fulfillWithValue(data.data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const increaseViews = createAsyncThunk('post/INCREASE_VIEWS', async (payload, thunkAPI) => {
+  try {
+    await axios.patch(`http://localhost:3001/posts/${payload.id}`, { views: payload.views + 1 });
+    return '';
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -130,6 +140,17 @@ const postSlice = createSlice({
       state.post = action.payload;
     },
     [getPostById.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [increaseViews.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [increaseViews.fulfilled]: (state, action) => {
+      state.isLoading = false;
+    },
+    [increaseViews.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
