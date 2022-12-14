@@ -6,7 +6,7 @@ function ContentBox({ children }) {
     <Paper
       sx={{ width: '100%', bgcolor: 'background.paper', mt: 2, p: 2, boxSizing: 'border-box' }}
     >
-      <Typography>{children}</Typography>
+      <Typography sx={{ whiteSpace: 'pre-line' }}>{children}</Typography>
     </Paper>
   );
 }

@@ -1,5 +1,5 @@
-import { Container, IconButton, Paper, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Container, IconButton, Typography } from '@mui/material';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -12,14 +12,25 @@ import CommentForm from '../components/details/CommentForm';
 import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
+import { readComments } from '../redux/modules/commentSlice';
 import { clearError, deletePost, getPostById } from '../redux/modules/postSlice';
+import Loading from '../components/common/Loading';
 
 function Details() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
   const post = useSelector((state) => state.post.post);
-  console.log(post);
+  const { comments, isLoading, error } = useSelector((state) => state.comments);
+
+  const dispatchReadComments = useCallback(() => {
+    dispatch(readComments());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatchReadComments();
+  }, [dispatchReadComments]);
+
   function onDeleteHandler() {
     dispatch(deletePost(postId));
   }
@@ -35,8 +46,10 @@ function Details() {
     dispatch(getPostById(postId));
   }, []);
 
+  if (isLoading) return <Loading />;
+  if (error) return <div>error!</div>;
   return (
-    <Container>
+    <Container sx={{ mb: 3 }}>
       <StHeader>
         <StBtnBox>
           <Link to="/">
@@ -73,11 +86,18 @@ function Details() {
         createdAt={post.createdAt}
       />
       <ContentBox>{post.contents}</ContentBox>
-      <CommentNum comments="2" />
+      <CommentNum comments={comments.length} />
       <MainDivider />
       <CommentForm />
-      <Comment username="금붕어" createdAt="2022.12.12" content="나는 오늘 뭐했지..." />
-      <Comment username="ssori" createdAt="2022.12.13" content="저희 오늘은 같이 열심히 해봐요!" />
+      {comments &&
+        comments.map((comment) => (
+          <Comment
+            key={comment.id}
+            username={comment.username}
+            createdAt={comment.createdAt}
+            content={comment.content}
+          />
+        ))}
     </Container>
   );
 }
