@@ -34,14 +34,14 @@ export const readComments = createAsyncThunk('comments/read', async (_, thunkAPI
 //   }
 // });
 
-// export const deleteComments = createAsyncThunk('comments/delete', async (payload, thunkAPI) => {
-//   try {
-//     const data = await axios.delete('http://localhost:3001/comments');
-//     return thunkAPI.fulfillWithValue(data.data);
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error);
-//   }
-// });
+export const deleteComments = createAsyncThunk('comments/delete', async (id, thunkAPI) => {
+  try {
+    await axios.delete(`http://localhost:3001/comments/${id}`);
+    return id;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const commentsSlice = createSlice({
   name: 'comments',
@@ -67,6 +67,28 @@ export const commentsSlice = createSlice({
       state.comments = action.payload;
     },
     [readComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // [updateComments.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [updateComments.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.comments = action.payload;
+    // },
+    // [updateComments.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
+    [deleteComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = state.comments.filter((element) => element.id !== action.payload);
+    },
+    [deleteComments.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

@@ -93,6 +93,7 @@ function Details() {
         comments.map((comment) => (
           <Comment
             key={comment.id}
+            id={comment.id}
             username={comment.username}
             createdAt={comment.createdAt}
             content={comment.content}

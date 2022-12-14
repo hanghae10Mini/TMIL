@@ -3,8 +3,16 @@ import styled from 'styled-components';
 import { Box, Divider, IconButton, Typography } from '@mui/material';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { useDispatch } from 'react-redux';
+import { deleteComments } from '../../redux/modules/commentSlice';
 
-function Comment({ username, createdAt, content }) {
+function Comment({ id, username, createdAt, content }) {
+  const dispatch = useDispatch();
+
+  const handleRemove = () => {
+    dispatch(deleteComments(id));
+  };
+
   return (
     <StCommentBox>
       <Divider />
@@ -25,7 +33,13 @@ function Comment({ username, createdAt, content }) {
             <IconButton size="medium" edge="start" color="text.primary" sx={{ mr: 1 }}>
               <CreateOutlinedIcon />
             </IconButton>
-            <IconButton size="medium" edge="start" color="text.primary" sx={{ mr: 1 }}>
+            <IconButton
+              onClick={() => handleRemove()}
+              size="medium"
+              edge="start"
+              color="text.primary"
+              sx={{ mr: 1 }}
+            >
               <DeleteOutlineOutlinedIcon />
             </IconButton>
           </StBtnBox>
