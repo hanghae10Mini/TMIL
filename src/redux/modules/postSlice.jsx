@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Moment from 'react-moment';
 
 const initialState = {
   posts: [],
@@ -9,6 +10,7 @@ const initialState = {
     name: '',
     password: '',
     id: 0,
+    createAt: 'yyyy. mm. dd. hh:mm:ss',
   },
   isLoading: false,
   error: null,
@@ -82,6 +84,7 @@ const postSlice = createSlice({
       state.isLoading = false;
     },
     [createPost.rejected]: (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
       state.error = action.payload;
     },

@@ -20,8 +20,21 @@ function Header({ isCreate }) {
 
   const onAddHandler = (event) => {
     event.preventDefault();
-    console.log(postText);
-    dispatch(createPost(postText));
+    const nowTime = new Intl.DateTimeFormat('ko', {
+      hourCycle: 'h23',
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+
+    updateText.current = {
+      ...postText,
+      createAt: nowTime.format(new Date()).replace('. ', '/').replace('. ', '/').replace('. ', ' '),
+    };
+    dispatch(createPost(updateText.current));
     dispatch(clearText());
     navigate('/');
   };
