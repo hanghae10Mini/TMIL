@@ -8,7 +8,7 @@ import { changeContents } from '../../redux/modules/textSlice';
 
 function InputContents() {
   const post = useSelector((state) => state.post.post);
-  const text = useSelector((state) => state.postText);
+  const postText = useSelector((state) => state.postText);
   const { postId } = useParams();
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function InputContents() {
         variant="outlined"
         multiline
         onChange={onContentsChange}
-        value={text.contents}
+        value={postText.contents}
         color="secondary"
         inputProps={{
           style: {

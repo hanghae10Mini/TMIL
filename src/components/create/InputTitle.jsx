@@ -8,7 +8,7 @@ import { getPostById } from '../../redux/modules/postSlice';
 
 function InputTitle({ isCreate }) {
   const post = useSelector((state) => state.post.post);
-  const text = useSelector((state) => state.postText);
+  const postText = useSelector((state) => state.postText);
   const { postId } = useParams();
   const dispatch = useDispatch();
 
@@ -42,14 +42,14 @@ function InputTitle({ isCreate }) {
         label="제목"
         variant="outlined"
         onChange={onTitleChange}
-        value={text.title}
+        value={postText.title}
       />
       <StName
         color="secondary"
         label="닉네임"
         variant="outlined"
         onChange={onNameChange}
-        value={text.name}
+        value={postText.name}
         disabled={!isCreate}
       />
       <StPassword
@@ -58,7 +58,7 @@ function InputTitle({ isCreate }) {
         variant="outlined"
         type="password"
         onChange={onPasswordChange}
-        value={text.password}
+        value={postText.password}
       />
     </StInputTitle>
   );
