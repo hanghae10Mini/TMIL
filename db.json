@@ -1,102 +1,13 @@
 {
   "posts": [
     {
-      "postId": 1,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 2,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 3,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 4,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 5,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 6,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 7,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 8,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 9,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 10,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 11,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 12,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 13,
-      "username": "금붕어",
-      "title": "어제 뭘 했는지 기억이 안나요..",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
-    },
-    {
-      "postId": 14,
-      "username": "nick1",
-      "title": "제목입니다1",
-      "comments": "댓글 개수",
-      "createdAt": "2022/10/22"
+      "title": "temp1",
+      "contents": "temp1",
+      "name": "temp1",
+      "password": "temp1",
+      "views": 5,
+      "createdAt": "2022/12/14 21:24:45",
+      "id": 1
     }
   ]
 }

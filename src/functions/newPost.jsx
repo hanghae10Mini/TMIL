@@ -11,6 +11,7 @@ export default function newPost(postText) {
 
   return {
     ...postText,
-    createAt: nowTime.format(new Date()).replace('. ', '/').replace('. ', '/').replace('. ', ' '),
+    views: 0,
+    createdAt: nowTime.format(new Date()).replace('. ', '/').replace('. ', '/').replace('. ', ' '),
   };
 }

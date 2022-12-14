@@ -12,13 +12,14 @@ import CommentForm from '../components/details/CommentForm';
 import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
-import { clearError, deletePost } from '../redux/modules/postSlice';
+import { clearError, deletePost, getPostById } from '../redux/modules/postSlice';
 
 function Details() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
-
+  const post = useSelector((state) => state.post.post);
+  console.log(post);
   function onDeleteHandler() {
     dispatch(deletePost(postId));
   }
@@ -30,13 +31,19 @@ function Details() {
     }
   }, [error]);
 
+  useEffect(() => {
+    dispatch(getPostById(postId));
+  }, []);
+
   return (
     <Container>
       <StHeader>
         <StBtnBox>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ m: 1 }}>
-            <ArrowBackIcon />
-          </IconButton>
+          <Link to="/">
+            <IconButton size="large" edge="start" color="text.primary" sx={{ m: 1 }}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
         </StBtnBox>
         <Typography variant="h5" fontWeight="bold">
           게시글 상세 보기
@@ -60,18 +67,12 @@ function Details() {
       </StHeader>
       <MainDivider />
       <DetailInfo
-        title="[TIL] 오늘 잠만 잤어요..."
-        username="잠만보"
-        views="48"
-        createdAt="2022.12.14"
+        title={post.title}
+        username={post.name}
+        views={post.views}
+        createdAt={post.createdAt}
       />
-      <ContentBox>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </ContentBox>
+      <ContentBox>{post.contents}</ContentBox>
       <CommentNum comments="2" />
       <MainDivider />
       <CommentForm />
