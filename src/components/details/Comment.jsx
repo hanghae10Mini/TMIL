@@ -32,7 +32,7 @@ function Comment({ username, createdAt, content }) {
         </Box>
       </Top>
       <Box className="content">
-        <Typography>{content}</Typography>
+        <Typography sx={{ whiteSpace: 'pre-line' }}>{content}</Typography>
       </Box>
     </StCommentBox>
   );
