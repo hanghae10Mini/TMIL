@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "title": "temp1",
+      "contents": "temp1",
+      "name": "temp1",
+      "password": "temp1",
+      "views": 5,
+      "createdAt": "2022/12/14 21:24:45",
+      "id": 1
+    }
+  ]
+}

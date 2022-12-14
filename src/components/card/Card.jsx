@@ -1,13 +1,15 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import theme from '../../styles/theme';
 
 function Card(props) {
-  const { title, content, day } = props;
+  const { title, username, createdAt } = props;
   return (
     <Box
       width="100%"
       py={2}
-      bgcolor="background.paper"
+      // theme 적용
+      bgcolor={theme.palette.primary}
       borderRadius={2}
       sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
     >
@@ -15,10 +17,10 @@ function Card(props) {
         {title}
       </Typography>
       <Typography sx={{ width: '33%', textAlign: 'center' }} variant="h6">
-        {content}
+        {username}
       </Typography>
       <Typography sx={{ width: '33%', textAlign: 'center' }} variant="h6">
-        {day}
+        {createdAt}
       </Typography>
     </Box>
   );

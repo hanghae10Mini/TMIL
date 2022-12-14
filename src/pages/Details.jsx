@@ -5,6 +5,7 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
 import MainDivider from '../components/common/MainDivider';
 import Comment from '../components/details/Comment';
 import CommentForm from '../components/details/CommentForm';
@@ -12,10 +13,14 @@ import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
 import { readComments } from '../redux/modules/commentSlice';
+import { clearError, deletePost, getPostById } from '../redux/modules/postSlice';
 import Loading from '../components/common/Loading';
 
 function Details() {
   const dispatch = useDispatch();
+  const { postId } = useParams();
+  const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
+  const post = useSelector((state) => state.post.post);
   const { comments, isLoading, error } = useSelector((state) => state.comments);
 
   const dispatchReadComments = useCallback(() => {
@@ -26,42 +31,61 @@ function Details() {
     dispatchReadComments();
   }, [dispatchReadComments]);
 
+  function onDeleteHandler() {
+    dispatch(deletePost(postId));
+  }
+
+  useEffect(() => {
+    if (error && error.message === '비밀번호 불일치') {
+      alert(error);
+      dispatch(clearError());
+    }
+  }, [error]);
+
+  useEffect(() => {
+    dispatch(getPostById(postId));
+  }, []);
+
   if (isLoading) return <Loading />;
   if (error) return <div>error!</div>;
   return (
     <Container sx={{ mb: 3 }}>
       <StHeader>
         <StBtnBox>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ m: 1 }}>
-            <ArrowBackIcon />
-          </IconButton>
+          <Link to="/">
+            <IconButton size="large" edge="start" color="text.primary" sx={{ m: 1 }}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Link>
         </StBtnBox>
         <Typography variant="h5" fontWeight="bold">
           게시글 상세 보기
         </Typography>
         <StBtnBox>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
-            <CreateOutlinedIcon />
-          </IconButton>
-          <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
+          <Link to={`/update/${postId}`}>
+            <IconButton size="large" edge="start" color="text.primary" sx={{ mr: 1 }}>
+              <CreateOutlinedIcon />
+            </IconButton>
+          </Link>
+          <IconButton
+            onClick={() => onDeleteHandler()}
+            size="large"
+            edge="start"
+            color="text.primary"
+            sx={{ mr: 1 }}
+          >
             <DeleteOutlineOutlinedIcon />
           </IconButton>
         </StBtnBox>
       </StHeader>
       <MainDivider />
       <DetailInfo
-        title="[TIL] 오늘 잠만 잤어요..."
-        username="잠만보"
-        views="48"
-        createdAt="2022.12.14"
+        title={post.title}
+        username={post.name}
+        views={post.views}
+        createdAt={post.createdAt}
       />
-      <ContentBox>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </ContentBox>
+      <ContentBox>{post.contents}</ContentBox>
       <CommentNum comments={comments.length} />
       <MainDivider />
       <CommentForm />
