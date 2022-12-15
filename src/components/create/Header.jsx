@@ -6,11 +6,11 @@ import { Button, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { clearText } from '../../redux/modules/postTextSlice';
 
-function Header({ isCreate, onAddHandler, onUpdateHandler }) {
+function Header({ isCreate, onAddHandler, onUpdateHandler, postId }) {
   const dispatch = useDispatch();
   return (
     <StTopbar>
-      <Link to="/">
+      <Link to={isCreate ? '/' : `/details/${postId}`}>
         <StIconButton onClick={() => dispatch(clearText())}>
           <StArrowBackIcon fontSize="50px" />
         </StIconButton>

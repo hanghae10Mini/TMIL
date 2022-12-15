@@ -1,28 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getPostById } from '../../redux/modules/postSlice';
 import { changeContents } from '../../redux/modules/postTextSlice';
 
 function InputContents() {
-  const post = useSelector((state) => state.post.post);
   const postText = useSelector((state) => state.postText);
-  const { postId } = useParams();
   const dispatch = useDispatch();
 
   const onContentsChange = (event) => {
     dispatch(changeContents(event.target.value));
   };
-
-  useEffect(() => {
-    if (postId) dispatch(getPostById(postId));
-  }, []);
-
-  useEffect(() => {
-    if (postId) dispatch(changeContents(post.contents));
-  }, [post]);
 
   return (
     <StWrapper>

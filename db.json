@@ -5,8 +5,8 @@
       "contents": "test\n",
       "name": "test",
       "password": "test",
-      "views": 2,
-      "commentsNum": 3,
+      "views": 8,
+      "commentsNum": 4,
       "createdAt": "2022/12/15 10:09:32",
       "id": 1
     }
@@ -35,6 +35,14 @@
       "createdAt": "2022/12/15 10:09:50",
       "postId": 1,
       "id": 3
+    },
+    {
+      "contents": "3",
+      "name": "1",
+      "password": "2",
+      "createdAt": "2022/12/15 10:34:18",
+      "postId": 1,
+      "id": 4
     }
   ]
 }

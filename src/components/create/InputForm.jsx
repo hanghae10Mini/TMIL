@@ -32,12 +32,17 @@ function InputForm({ isCreate }) {
     navigate(`/details/${postId}`);
   };
 
-  useSetUpdateText();
+  useSetUpdateText(postId);
 
   return (
     <StInputForm>
       <Paper sx={{ width: '100%', bgcolor: 'background.paper', p: 2, boxSizing: 'border-box' }}>
-        <Header isCreate={isCreate} onAddHandler={onAddHandler} onUpdateHandler={onUpdateHandler} />
+        <Header
+          isCreate={isCreate}
+          onAddHandler={onAddHandler}
+          onUpdateHandler={onUpdateHandler}
+          postId={postId}
+        />
         <InputTitle isCreate={isCreate} />
         <InputContents isCreate={isCreate} />
       </Paper>
