@@ -8,7 +8,6 @@ import { getCommentAuth } from '../../utils/auth';
 
 function UpdateCommentForm({ commentId, fixedUsername, fixedContent }) {
   const dispatch = useDispatch();
-  const [auth, setAuth] = useState(false);
   const [inputs, setInputs] = useState({
     username: fixedUsername,
     password: '',
@@ -38,7 +37,6 @@ function UpdateCommentForm({ commentId, fixedUsername, fixedContent }) {
           content,
         };
         dispatch(updateComments(payload));
-        setAuth(false);
       } else {
         alert('틀린 비밀번호입니다.');
       }
