@@ -5,23 +5,29 @@ import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import MainDivider from '../components/common/MainDivider';
 import Comment from '../components/details/Comment';
 import CommentForm from '../components/details/CommentForm';
 import CommentNum from '../components/details/CommentNum';
 import DetailInfo from '../components/details/DetailInfo';
 import ContentBox from '../components/details/ContentBox';
-import { clearError, deletePost, getPostById } from '../redux/modules/postSlice';
+import { clearError, deletePost, getPostById, increaseViews } from '../redux/modules/postSlice';
+import { readComment } from '../redux/modules/commentSlice';
 
 function Details() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
   const post = useSelector((state) => state.post.post);
-  console.log(post);
+  const comments = useSelector((state) => state.comment.comments);
+
+  const navigate = useNavigate();
+
   function onDeleteHandler() {
     dispatch(deletePost(postId));
+    alert('삭제 완료');
+    navigate('/');
   }
 
   useEffect(() => {
@@ -33,6 +39,7 @@ function Details() {
 
   useEffect(() => {
     dispatch(getPostById(postId));
+    dispatch(readComment());
   }, []);
 
   return (
@@ -73,11 +80,22 @@ function Details() {
         createdAt={post.createdAt}
       />
       <ContentBox>{post.contents}</ContentBox>
-      <CommentNum comments="2" />
+      <CommentNum comments={post.commentsNum} />
       <MainDivider />
-      <CommentForm />
-      <Comment username="금붕어" createdAt="2022.12.12" content="나는 오늘 뭐했지..." />
-      <Comment username="ssori" createdAt="2022.12.13" content="저희 오늘은 같이 열심히 해봐요!" />
+      <CommentForm postId={postId} post={post} />
+      {comments &&
+        comments.map((v) => {
+          if (v.postId === postId * 1)
+            return (
+              <Comment
+                key={`${v.id}`}
+                username={v.name}
+                createdAt={v.createdAt}
+                content={v.contents}
+              />
+            );
+          return null;
+        })}
     </Container>
   );
 }

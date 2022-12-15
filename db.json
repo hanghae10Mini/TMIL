@@ -1,13 +1,40 @@
 {
   "posts": [
     {
-      "title": "temp1",
-      "contents": "temp1",
-      "name": "temp1",
-      "password": "temp1",
-      "views": 5,
-      "createdAt": "2022/12/14 21:24:45",
+      "title": "test입니다.",
+      "contents": "test\n",
+      "name": "test",
+      "password": "test",
+      "views": 2,
+      "commentsNum": 3,
+      "createdAt": "2022/12/15 10:09:32",
       "id": 1
+    }
+  ],
+  "comments": [
+    {
+      "contents": "3",
+      "name": "1",
+      "password": "2",
+      "createdAt": "2022/12/15 10:09:46",
+      "postId": 1,
+      "id": 1
+    },
+    {
+      "contents": "1",
+      "name": "3",
+      "password": "2",
+      "createdAt": "2022/12/15 10:09:50",
+      "postId": 1,
+      "id": 2
+    },
+    {
+      "contents": "",
+      "name": "",
+      "password": "",
+      "createdAt": "2022/12/15 10:09:50",
+      "postId": 1,
+      "id": 3
     }
   ]
 }

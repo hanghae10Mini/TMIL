@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 import { TextField } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { changeTitle, changeName, changePassword } from '../../redux/modules/textSlice';
-import { getPostById } from '../../redux/modules/postSlice';
+import { changeTitle, changeName, changePassword } from '../../redux/modules/postTextSlice';
 
 function InputTitle({ isCreate }) {
-  const post = useSelector((state) => state.post.post);
   const postText = useSelector((state) => state.postText);
-  const { postId } = useParams();
   const dispatch = useDispatch();
 
   const onTitleChange = (event) => {
@@ -21,19 +17,6 @@ function InputTitle({ isCreate }) {
   const onPasswordChange = (event) => {
     dispatch(changePassword(event.target.value));
   };
-
-  useEffect(() => {
-    if (postId) {
-      dispatch(getPostById(postId));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (postId) {
-      dispatch(changeTitle(post.title));
-      dispatch(changeName(post.name));
-    }
-  }, [post]);
 
   return (
     <StInputTitle>

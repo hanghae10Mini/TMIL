@@ -7,7 +7,7 @@ import Header from './Header';
 import InputTitle from './InputTitle';
 import InputContents from './InputContents';
 import { createPost, updatePost } from '../../redux/modules/postSlice';
-import { clearText } from '../../redux/modules/textSlice';
+import { clearText } from '../../redux/modules/postTextSlice';
 import newPost from '../../functions/newPost';
 import useSetUpdateText from '../../hooks/useSetUpdateText';
 
@@ -25,9 +25,9 @@ function InputForm({ isCreate }) {
     navigate('/');
   };
 
-  const onUpdateHandler = (event) => {
+  const onUpdateHandler = async (event) => {
     event.preventDefault();
-    dispatch(updatePost({ ...postText, id: postId }));
+    await dispatch(updatePost({ ...postText, id: postId }));
     dispatch(clearText());
     navigate(`/details/${postId}`);
   };

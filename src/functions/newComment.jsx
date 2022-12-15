@@ -1,4 +1,4 @@
-export default function newPost(postText) {
+export default function newComment(commentText, thisPostId) {
   const nowTime = new Intl.DateTimeFormat('ko', {
     hourCycle: 'h23',
     month: '2-digit',
@@ -10,9 +10,8 @@ export default function newPost(postText) {
   });
 
   return {
-    ...postText,
-    views: 0,
-    commentsNum: 0,
+    ...commentText,
     createdAt: nowTime.format(new Date()).replace('. ', '/').replace('. ', '/').replace('. ', ' '),
+    postId: thisPostId * 1,
   };
 }

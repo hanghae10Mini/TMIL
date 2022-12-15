@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { clearText } from '../../redux/modules/textSlice';
+import { clearText } from '../../redux/modules/postTextSlice';
 
 function Header({ isCreate, onAddHandler, onUpdateHandler }) {
   const dispatch = useDispatch();

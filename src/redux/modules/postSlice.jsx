@@ -1,3 +1,4 @@
+import { ConstructionOutlined } from '@mui/icons-material';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -10,6 +11,7 @@ const initialState = {
     password: '',
     id: 0,
     views: 0,
+    commentsNum: 0,
     createdAt: 'yyyy. mm. dd. hh:mm:ss',
   },
   isLoading: false,
@@ -79,6 +81,35 @@ export const increaseViews = createAsyncThunk('post/INCREASE_VIEWS', async (payl
   }
 });
 
+export const increaseCommentsNum = createAsyncThunk(
+  'post/INCREASE_COMMENTS_NUM',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
+        commentsNum: payload.commentsNum + 1,
+      });
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const decreaseCommentsNum = createAsyncThunk(
+  'post/DECREASE_COMMENTS_NUM',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
+        commentsNum: payload.commentNum - 1,
+      });
+      const data = await axios.patch(`http://localhost:3001/posts`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
 const postSlice = createSlice({
   name: 'post',
   initialState,
@@ -93,7 +124,6 @@ const postSlice = createSlice({
       state.isLoading = false;
     },
     [createPost.rejected]: (state, action) => {
-      console.log(action.payload);
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -144,13 +174,14 @@ const postSlice = createSlice({
       state.error = action.payload;
     },
 
-    [increaseViews.pending]: (state) => {
+    [increaseCommentsNum.pending]: (state) => {
       state.isLoading = true;
     },
-    [increaseViews.fulfilled]: (state, action) => {
+    [increaseCommentsNum.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.post = action.payload;
     },
-    [increaseViews.rejected]: (state, action) => {
+    [increaseCommentsNum.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },

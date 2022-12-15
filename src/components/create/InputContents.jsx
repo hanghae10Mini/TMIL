@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getPostById } from '../../redux/modules/postSlice';
-import { changeContents } from '../../redux/modules/textSlice';
+import { changeContents } from '../../redux/modules/postTextSlice';
 
 function InputContents() {
   const post = useSelector((state) => state.post.post);

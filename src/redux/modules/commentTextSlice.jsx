@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  title: '',
   contents: '',
   name: '',
   password: '',
 };
 
-const textSlice = createSlice({
-  name: 'text',
+const commentTextSlice = createSlice({
+  name: 'commentText',
   initialState,
   reducers: {
-    clearText: (state) => ({ ...state, title: '', contents: '', name: '', password: '' }),
-    changeTitle: (state, action) => ({ ...state, title: action.payload }),
+    clearText: (state) => ({ ...state, contents: '', name: '', password: '' }),
     changeContents: (state, action) => ({ ...state, contents: action.payload }),
     changeName: (state, action) => ({ ...state, name: action.payload }),
     changePassword: (state, action) => ({ ...state, password: action.payload }),
@@ -20,5 +18,5 @@ const textSlice = createSlice({
 });
 
 export const { clearText, changeTitle, changeContents, changeName, changePassword } =
-  textSlice.actions;
-export default textSlice.reducer;
+  commentTextSlice.actions;
+export default commentTextSlice.reducer;

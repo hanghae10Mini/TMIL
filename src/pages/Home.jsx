@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Stack, Paper, Typography, Pagination } from '@mui/material';
+import { Box, Stack, Paper, Typography, Pagination, CardActionArea } from '@mui/material';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -73,8 +73,14 @@ export default function Home() {
           {/* <Card title="[TIL]오늘 잠만 잤어요" content="내용" day="2022/10/22" /> */}
           {boardList &&
             boardList.map((v) => (
-              <Link to={`/details/${v.id}`} key={`${v.id}`} onClick={dispatch(increaseViews(v))}>
-                <Card key={`${v.id}`} title={v.title} username={v.name} createdAt={v.createdAt} />
+              <Link to={`/details/${v.id}`} key={`${v.id}`}>
+                <CardActionArea
+                  onClick={() => {
+                    dispatch(increaseViews(v));
+                  }}
+                >
+                  <Card key={`${v.id}`} title={v.title} username={v.name} createdAt={v.createdAt} />
+                </CardActionArea>
               </Link>
             ))}
         </Stack>
