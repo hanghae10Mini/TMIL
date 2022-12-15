@@ -42,7 +42,7 @@ server.post('/auth/posts/:id', (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   const data = db
-    .get('comments')
+    .get('posts')
     .find({
       id: Number(id),
       password,

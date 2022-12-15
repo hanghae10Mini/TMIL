@@ -4,7 +4,7 @@ import { Box, Stack, Paper, Typography, Pagination } from '@mui/material';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Card from '../components/card/Card';
+import Card from '../components/home/Card';
 import Divider from '../components/common/MainDivider';
 import { increaseViews } from '../redux/modules/postSlice';
 

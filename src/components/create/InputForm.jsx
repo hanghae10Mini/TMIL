@@ -10,6 +10,7 @@ import { createPost, updatePost } from '../../redux/modules/postSlice';
 import { clearText } from '../../redux/modules/textSlice';
 import newPost from '../../functions/newPost';
 import useSetUpdateText from '../../hooks/useSetUpdateText';
+import { getPostAuth } from '../../utils/auth';
 
 function InputForm({ isCreate }) {
   const { postId } = useParams();
@@ -25,11 +26,16 @@ function InputForm({ isCreate }) {
     navigate('/');
   };
 
-  const onUpdateHandler = (event) => {
+  const onUpdateHandler = async (event) => {
     event.preventDefault();
-    dispatch(updatePost({ ...postText, id: postId }));
-    dispatch(clearText());
-    navigate(`/details/${postId}`);
+    const { result } = await getPostAuth({ id: postId, password: postText.password });
+    if (result) {
+      dispatch(updatePost({ ...postText, id: postId }));
+      dispatch(clearText());
+      navigate(`/details/${postId}`);
+    } else {
+      alert('비밀번호가 틀렸습니다.');
+    }
   };
 
   useSetUpdateText();
