@@ -18,8 +18,8 @@ const initialState = {
 
 export const createPost = createAsyncThunk('post/CREATE_POST', async (payload, thunkAPI) => {
   try {
-    await axios.post('http://localhost:3001/posts', payload);
-    return '게시글 작성 완료';
+    const response = await axios.post('http://localhost:3001/posts', payload);
+    return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -36,17 +36,12 @@ export const readPost = createAsyncThunk('post/READ_POST', async (payload, thunk
 
 export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, thunkAPI) => {
   try {
-    const currentPost = await axios.get(`http://localhost:3001/posts/${payload.id}`);
-
-    if (currentPost.data.password === payload.password) {
-      const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
-        title: payload.title,
-        contents: payload.contents,
-        name: payload.name,
-      });
-      return thunkAPI.fulfillWithValue(data.data);
-    }
-    throw new Error('비밀번호 불일치');
+    const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
+      title: payload.title,
+      contents: payload.contents,
+      name: payload.name,
+    });
+    return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -55,7 +50,7 @@ export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, t
 export const deletePost = createAsyncThunk('post/DELETE_POST', async (payload, thunkAPI) => {
   try {
     await axios.delete(`http://localhost:3001/posts/${payload}`);
-    return '삭제 완료!';
+    return payload.id;
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -82,18 +77,16 @@ export const increaseViews = createAsyncThunk('post/INCREASE_VIEWS', async (payl
 const postSlice = createSlice({
   name: 'post',
   initialState,
-  reducers: {
-    clearError: (state) => ({ ...state, error: null }),
-  },
+  reducers: {},
   extraReducers: {
     [createPost.pending]: (state) => {
       state.isLoading = true;
     },
-    [createPost.fulfilled]: (state) => {
+    [createPost.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.comments.push(action.payload);
     },
     [createPost.rejected]: (state, action) => {
-      console.log(action.payload);
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -115,6 +108,12 @@ const postSlice = createSlice({
     },
     [updatePost.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.posts = state.posts.map((element) => {
+        if (element.id === action.payload.id) {
+          return action.payload;
+        }
+        return element;
+      });
     },
     [updatePost.rejected]: (state, action) => {
       state.isLoading = false;
@@ -126,6 +125,8 @@ const postSlice = createSlice({
     },
     [deletePost.fulfilled]: (state, action) => {
       state.isLoading = false;
+      state.posts = state.posts.filter((element) => element.id !== action.payload);
+      state.post = initialState.post;
     },
     [deletePost.rejected]: (state, action) => {
       state.isLoading = false;
@@ -147,7 +148,7 @@ const postSlice = createSlice({
     [increaseViews.pending]: (state) => {
       state.isLoading = true;
     },
-    [increaseViews.fulfilled]: (state, action) => {
+    [increaseViews.fulfilled]: (state, _) => {
       state.isLoading = false;
     },
     [increaseViews.rejected]: (state, action) => {
@@ -156,7 +157,5 @@ const postSlice = createSlice({
     },
   },
 });
-
-export const { clearError } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -17,8 +17,7 @@ const getPostAuth = async (payload) => {
       password: payload.password,
     })
     .then((res) => {
-      console.log(res);
-      // return res.data;
+      return res.data;
     });
   return response;
 };

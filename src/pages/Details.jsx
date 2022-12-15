@@ -1,5 +1,5 @@
 import { Container, IconButton, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -15,11 +15,12 @@ import ContentBox from '../components/details/ContentBox';
 import { readComments } from '../redux/modules/commentSlice';
 import { deletePost, getPostById } from '../redux/modules/postSlice';
 import Loading from '../components/common/Loading';
+import DeletePostForm from '../components/details/DeletePostForm';
 
 function Details() {
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   const { postId } = useParams();
-  // const error = useSelector((state) => state.post.error); // error 처리를 위한 error state입니다.
   const post = useSelector((state) => state.post.post);
   const { comments, isLoading, error } = useSelector((state) => state.comments);
 
@@ -35,16 +36,13 @@ function Details() {
     dispatch(getPostById(postId));
   }, [dispatch, postId]);
 
-  function onDeleteHandler() {
-    dispatch(deletePost(postId));
-  }
+  const handleToggle = () => {
+    setVisible(!visible);
+  };
 
-  // useEffect(() => {
-  //   if (error && error.message === '비밀번호 불일치') {
-  //     alert(error);
-  //     dispatch(clearError());
-  //   }
-  // }, [error]);
+  const handleDelete = () => {
+    dispatch(deletePost(postId));
+  };
 
   if (isLoading) return <Loading />;
   if (error) return <div>error!</div>;
@@ -68,7 +66,7 @@ function Details() {
             </IconButton>
           </Link>
           <IconButton
-            onClick={() => onDeleteHandler()}
+            onClick={handleToggle}
             size="large"
             edge="start"
             color="text.primary"
@@ -77,6 +75,7 @@ function Details() {
             <DeleteOutlineOutlinedIcon />
           </IconButton>
         </StBtnBox>
+        {visible && <DeletePostForm />}
       </StHeader>
       <MainDivider />
       <DetailInfo
@@ -104,6 +103,7 @@ function Details() {
 }
 
 const StHeader = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
