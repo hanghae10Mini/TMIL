@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getCommentAuth = async (payload) => {
   const response = await axios
-    .post(`http://localhost:3001/auth/comments/${payload.id}`, {
+    .post(`https://tmil-server.vercel.app/auth/comments/${payload.id}`, {
       password: payload.password,
     })
     .then((res) => {
@@ -13,7 +13,7 @@ const getCommentAuth = async (payload) => {
 
 const getPostAuth = async (payload) => {
   const response = await axios
-    .post(`http://localhost:3001/auth/posts/${payload.id}`, {
+    .post(`https://tmil-server.vercel.app/auth/posts/${payload.id}`, {
       password: payload.password,
     })
     .then((res) => {

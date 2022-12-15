@@ -9,7 +9,7 @@ const initialState = {
 
 export const createComments = createAsyncThunk('comments/create', async (payload, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:3001/comments', payload);
+    const response = await axios.post('https://tmil-server.vercel.app/comments', payload);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -18,7 +18,7 @@ export const createComments = createAsyncThunk('comments/create', async (payload
 
 export const readComments = createAsyncThunk('comments/read', async (postId, thunkAPI) => {
   try {
-    const response = await axios.get(`http://localhost:3001/comments?postId=${postId}`);
+    const response = await axios.get(`https://tmil-server.vercel.app/comments?postId=${postId}`);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -27,7 +27,7 @@ export const readComments = createAsyncThunk('comments/read', async (postId, thu
 
 export const updateComments = createAsyncThunk('comments/update', async (payload, thunkAPI) => {
   try {
-    const response = await axios.patch(`http://localhost:3001/comments/${payload.id}`, {
+    const response = await axios.patch(`https://tmil-server.vercel.app/comments/${payload.id}`, {
       content: payload.content,
     });
     return thunkAPI.fulfillWithValue(response.data);
@@ -38,7 +38,7 @@ export const updateComments = createAsyncThunk('comments/update', async (payload
 
 export const deleteComments = createAsyncThunk('comments/delete', async (id, thunkAPI) => {
   try {
-    await axios.delete(`http://localhost:3001/comments/${id}`);
+    await axios.delete(`https://tmil-server.vercel.app/comments/${id}`);
     return id;
   } catch (error) {
     return thunkAPI.rejectWithValue(error);

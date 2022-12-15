@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   const getBoardList = useCallback(async () => {
-    const getList = await axios.get('http://localhost:3001/posts');
+    const getList = await axios.get('https://tmil-server.vercel.app/posts');
     setTotalList(getList.data);
   }, []);
 

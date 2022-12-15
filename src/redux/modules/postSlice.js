@@ -18,7 +18,7 @@ const initialState = {
 
 export const createPost = createAsyncThunk('post/CREATE_POST', async (payload, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:3001/posts', payload);
+    const response = await axios.post('https://tmil-server.vercel.app/posts', payload);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -27,7 +27,7 @@ export const createPost = createAsyncThunk('post/CREATE_POST', async (payload, t
 
 export const readPost = createAsyncThunk('post/READ_POST', async (payload, thunkAPI) => {
   try {
-    const data = await axios.get('http://localhost:3001/posts');
+    const data = await axios.get('https://tmil-server.vercel.app/posts');
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -36,7 +36,7 @@ export const readPost = createAsyncThunk('post/READ_POST', async (payload, thunk
 
 export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, thunkAPI) => {
   try {
-    const data = await axios.patch(`http://localhost:3001/posts/${payload.id}`, {
+    const data = await axios.patch(`https://tmil-server.vercel.app/posts/${payload.id}`, {
       title: payload.title,
       contents: payload.contents,
       name: payload.name,
@@ -49,7 +49,7 @@ export const updatePost = createAsyncThunk('post/UPDATE_POST', async (payload, t
 
 export const deletePost = createAsyncThunk('post/DELETE_POST', async (payload, thunkAPI) => {
   try {
-    await axios.delete(`http://localhost:3001/posts/${payload}`);
+    await axios.delete(`https://tmil-server.vercel.app/posts/${payload}`);
     return payload.id;
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -58,7 +58,7 @@ export const deletePost = createAsyncThunk('post/DELETE_POST', async (payload, t
 
 export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payload, thunkAPI) => {
   try {
-    const data = await axios.get(`http://localhost:3001/posts/${payload}`);
+    const data = await axios.get(`https://tmil-server.vercel.app/posts/${payload}`);
     return thunkAPI.fulfillWithValue(data.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -67,7 +67,7 @@ export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payloa
 
 export const increaseViews = createAsyncThunk('post/INCREASE_VIEWS', async (payload, thunkAPI) => {
   try {
-    await axios.patch(`http://localhost:3001/posts/${payload.id}`, { views: payload.views + 1 });
+    await axios.patch(`https://tmil-server.vercel.app/posts/${payload.id}`, { views: payload.views + 1 });
     return '';
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
