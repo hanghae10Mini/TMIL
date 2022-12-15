@@ -8,13 +8,19 @@ const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
 // db.json를 조작하기 위해 lowdb를 사용
-const adapter = new FileSync('db.json');
-const db = low(adapter);
+let adapter;
+let db;
+
+const setDB = () => {
+  adapter = new FileSync('db.json');
+  db = low(adapter);
+};
 
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 server.post('/auth/comments/:id', (req, res) => {
+  setDB();
   const { id } = req.params;
   const { password } = req.body;
   const data = db
@@ -32,6 +38,7 @@ server.post('/auth/comments/:id', (req, res) => {
 });
 
 server.post('/auth/posts/:id', (req, res) => {
+  setDB();
   const { id } = req.params;
   const { password } = req.body;
   const data = db
@@ -48,11 +55,12 @@ server.post('/auth/posts/:id', (req, res) => {
   }
 });
 
-server.use((req, res, next) => {
-  next();
-});
+// server.use((req, res, next) => {
+//   next();
+// });
 
 server.use(router);
+
 server.listen(3001, () => {
   console.log('JSON Server is running');
 });
