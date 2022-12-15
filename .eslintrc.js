@@ -21,5 +21,6 @@ module.exports = {
     'react/jsx-props-no-spreading': [1, { custom: 'ignore' }], // props spreading을 허용하지 않는 규칙 해제
     'react/prop-types': 0, // prop-types를 선언해주어야하는 규칙 해제
     'no-param-reassign': 0, // 파라미터 변경을 허용하지 않는 규칙 해제
+    'no-alert': 0, // alert 제한 규칙 해제
   },
 };

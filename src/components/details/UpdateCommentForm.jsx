@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { Box, Button, Paper, TextField } from '@mui/material';
 import styled from 'styled-components';
 import React, { useState } from 'react';

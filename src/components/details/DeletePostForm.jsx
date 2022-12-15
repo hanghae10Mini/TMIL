@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import { Box, Button, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
