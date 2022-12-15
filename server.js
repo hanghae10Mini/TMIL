@@ -55,10 +55,6 @@ server.post('/auth/posts/:id', (req, res) => {
   }
 });
 
-// server.use((req, res, next) => {
-//   next();
-// });
-
 server.use(router);
 
 server.listen(3001, () => {
