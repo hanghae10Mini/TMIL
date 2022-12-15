@@ -1,18 +1,18 @@
+/* eslint-disable no-alert */
 import { Box, Button, Paper, TextField } from '@mui/material';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { createComments } from '../../redux/modules/commentSlice';
-import { currentTime } from '../../utils/date';
+import { updateComments } from '../../redux/modules/commentSlice';
+import { getCommentAuth } from '../../utils/auth';
 
-function CommentForm() {
-  const { postId } = useParams();
+function UpdateCommentForm({ commentId, fixedUsername, fixedContent }) {
   const dispatch = useDispatch();
+  const [auth, setAuth] = useState(false);
   const [inputs, setInputs] = useState({
-    username: '',
+    username: fixedUsername,
     password: '',
-    content: '',
+    content: fixedContent,
   });
 
   const { username, password, content } = inputs;
@@ -25,34 +25,36 @@ function CommentForm() {
     });
   };
 
-  const handleCreate = () => {
+  const handleUpdate = async () => {
+    if (content === fixedContent) {
+      alert('내용을 변경해주세요');
+    }
     if (username && password && content) {
-      const comment = {
-        postId,
-        username,
-        password,
-        content,
-        createdAt: currentTime(),
-      };
-
-      dispatch(createComments(comment));
-
-      setInputs({
-        username: '',
-        password: '',
-        content: '',
-      });
+      // 권한 조회
+      const { result } = await getCommentAuth({ id: commentId, password });
+      if (result) {
+        const payload = {
+          id: commentId,
+          content,
+        };
+        dispatch(updateComments(payload));
+        setAuth(false);
+      } else {
+        alert('틀린 비밀번호입니다.');
+      }
     } else {
-      // eslint-disable-next-line no-alert
       alert('값을 모두 입력해주세요.');
     }
   };
 
   return (
-    <Paper sx={{ width: '100%', bgcolor: 'background.paper', p: 2, boxSizing: 'border-box' }}>
+    <Paper
+      sx={{ width: '100%', bgcolor: 'background.paper', mt: 2, p: 2, boxSizing: 'border-box' }}
+    >
       <Top>
         <Box sx={{ width: '100%' }}>
           <TextField
+            disabled
             onChange={handleChange}
             value={inputs.username}
             id="username"
@@ -72,8 +74,8 @@ function CommentForm() {
             sx={{ mr: 2 }}
           />
         </Box>
-        <Button onClick={handleCreate} variant="contained" sx={{ fontWeight: 'bold' }}>
-          등록
+        <Button onClick={handleUpdate} variant="contained" sx={{ fontWeight: 'bold' }}>
+          수정
         </Button>
       </Top>
       <Bottom>
@@ -103,4 +105,4 @@ const Bottom = styled.div`
   margin-top: 16px;
 `;
 
-export default CommentForm;
+export default UpdateCommentForm;

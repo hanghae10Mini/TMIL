@@ -1,21 +1,19 @@
+/* eslint-disable no-alert */
 import { Box, Button, Paper, TextField } from '@mui/material';
 import styled from 'styled-components';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { createComments } from '../../redux/modules/commentSlice';
-import { currentTime } from '../../utils/date';
+import { deleteComments } from '../../redux/modules/commentSlice';
+import { getCommentAuth } from '../../utils/auth';
 
-function CommentForm() {
-  const { postId } = useParams();
+function DeleteCommentForm({ commentId, fixedUsername }) {
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
-    username: '',
+    username: fixedUsername,
     password: '',
-    content: '',
   });
 
-  const { username, password, content } = inputs;
+  const { username, password } = inputs;
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -25,34 +23,28 @@ function CommentForm() {
     });
   };
 
-  const handleCreate = () => {
-    if (username && password && content) {
-      const comment = {
-        postId,
-        username,
-        password,
-        content,
-        createdAt: currentTime(),
-      };
-
-      dispatch(createComments(comment));
-
-      setInputs({
-        username: '',
-        password: '',
-        content: '',
-      });
+  const handleDelete = async () => {
+    if (username && password) {
+      // 권한 조회
+      const { result } = await getCommentAuth({ id: commentId, password });
+      if (result) {
+        dispatch(deleteComments(commentId));
+      } else {
+        alert('틀린 비밀번호입니다.');
+      }
     } else {
-      // eslint-disable-next-line no-alert
       alert('값을 모두 입력해주세요.');
     }
   };
 
   return (
-    <Paper sx={{ width: '100%', bgcolor: 'background.paper', p: 2, boxSizing: 'border-box' }}>
+    <Paper
+      sx={{ width: '100%', bgcolor: 'background.paper', mt: 2, p: 2, boxSizing: 'border-box' }}
+    >
       <Top>
         <Box sx={{ width: '100%' }}>
           <TextField
+            disabled
             onChange={handleChange}
             value={inputs.username}
             id="username"
@@ -72,23 +64,10 @@ function CommentForm() {
             sx={{ mr: 2 }}
           />
         </Box>
-        <Button onClick={handleCreate} variant="contained" sx={{ fontWeight: 'bold' }}>
-          등록
+        <Button onClick={handleDelete} variant="contained" sx={{ fontWeight: 'bold' }}>
+          삭제
         </Button>
       </Top>
-      <Bottom>
-        <TextField
-          multiline
-          rows={2}
-          onChange={handleChange}
-          value={inputs.content}
-          id="content"
-          label="내용"
-          size="small"
-          color="secondary"
-          sx={{ width: '100%' }}
-        />
-      </Bottom>
     </Paper>
   );
 }
@@ -103,4 +82,4 @@ const Bottom = styled.div`
   margin-top: 16px;
 `;
 
-export default CommentForm;
+export default DeleteCommentForm;
