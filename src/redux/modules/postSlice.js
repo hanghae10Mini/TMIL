@@ -67,7 +67,9 @@ export const getPostById = createAsyncThunk('post/GET_POST_BY_ID', async (payloa
 
 export const increaseViews = createAsyncThunk('post/INCREASE_VIEWS', async (payload, thunkAPI) => {
   try {
-    await axios.patch(`https://tmil-server.vercel.app/posts/${payload.id}`, { views: payload.views + 1 });
+    await axios.patch(`https://tmil-server.vercel.app/posts/${payload.id}`, {
+      views: payload.views + 1,
+    });
     return '';
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
