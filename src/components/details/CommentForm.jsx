@@ -25,7 +25,7 @@ function CommentForm() {
     });
   };
 
-  const handleCreateComment = () => {
+  const handleCreate = () => {
     if (username && password && content) {
       const comment = {
         postId,
@@ -72,7 +72,7 @@ function CommentForm() {
             sx={{ mr: 2 }}
           />
         </Box>
-        <Button onClick={handleCreateComment} variant="contained" sx={{ fontWeight: 'bold' }}>
+        <Button onClick={handleCreate} variant="contained" sx={{ fontWeight: 'bold' }}>
           등록
         </Button>
       </Top>
